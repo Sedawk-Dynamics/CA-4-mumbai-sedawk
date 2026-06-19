@@ -1,8 +1,6 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
-import { useRef } from "react"
 import {
   FileText,
   Receipt,
@@ -12,149 +10,161 @@ import {
   CreditCard,
   ArrowRight,
 } from "lucide-react"
+import SocialCards from "@/components/ui/social-cards"
 
 const services = [
   {
     icon: Receipt,
     title: "GST Filing",
+    slug: "gst-filing",
     description:
       "Complete GST registration, return filing (GSTR-1, 3B, 9), reconciliation, and advisory for businesses under the GST framework.",
-    color: "var(--saffron)",
-    bg: "oklch(0.97 0.03 50)",
+    color: "#f97316",
+    bg: "rgba(249,115,22,0.12)",
+    accent: "#f97316",
   },
   {
     icon: FileText,
     title: "Income Tax Filing",
+    slug: "income-tax-filing",
     description:
       "ITR filing for individuals, partnership firms, and companies. Tax planning, advance tax computation, and response to notices.",
-    color: "var(--navy)",
-    bg: "oklch(0.95 0.02 260)",
+    color: "#93c5fd",
+    bg: "rgba(147,197,253,0.12)",
+    accent: "#60a5fa",
   },
   {
     icon: TrendingUp,
     title: "TDS Compliance",
+    slug: "tds-compliance",
     description:
       "TDS deduction, deposit, return filing (Form 24Q, 26Q), and TDS certificates (Form 16/16A) for employees and vendors.",
-    color: "var(--emerald)",
-    bg: "oklch(0.95 0.03 152)",
+    color: "#34d399",
+    bg: "rgba(52,211,153,0.12)",
+    accent: "#10b981",
   },
   {
     icon: Building2,
     title: "Company Formation",
+    slug: "company-formation",
     description:
       "Private limited company, LLP, partnership firm, and sole proprietorship registration with MCA, Udyam, and Shop Act.",
-    color: "var(--saffron)",
-    bg: "oklch(0.97 0.03 50)",
+    color: "#f97316",
+    bg: "rgba(249,115,22,0.12)",
+    accent: "#f97316",
   },
   {
     icon: Scale,
     title: "Labour Law Compliance",
+    slug: "labour-law-compliance",
     description:
       "PF, ESIC, Professional Tax registration and returns. Gratuity, bonus, and full statutory compliance for your workforce.",
-    color: "var(--navy)",
-    bg: "oklch(0.95 0.02 260)",
+    color: "#c084fc",
+    bg: "rgba(192,132,252,0.12)",
+    accent: "#a855f7",
   },
   {
     icon: CreditCard,
     title: "Loan Syndication",
+    slug: "loan-syndication",
     description:
       "Business loans, working capital finance, MSME loan facilitation, CMA data preparation, and project finance advisory.",
-    color: "var(--emerald)",
-    bg: "oklch(0.95 0.03 152)",
+    color: "#34d399",
+    bg: "rgba(52,211,153,0.12)",
+    accent: "#10b981",
   },
 ]
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-}
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
-}
-
-function ServiceCard({
+function ServiceCardContent({
   icon: Icon,
   title,
+  slug,
   description,
   color,
   bg,
+  accent,
 }: (typeof services)[0]) {
   return (
-    <motion.article
-      variants={cardVariants}
-      whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(13,38,101,0.12)" }}
-      transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      className="group bg-card rounded-2xl p-7 border border-[var(--border)] flex flex-col gap-4 cursor-default"
+    <div
+      className="w-full h-full flex flex-col p-7 rounded-2xl border border-white/25"
+      style={{ background: "rgba(15,20,50,0.35)", backdropFilter: "blur(16px)" }}
     >
+      {/* Accent top bar */}
+      <div className="w-10 h-1 rounded-full mb-6 shrink-0" style={{ background: accent }} />
+
+      {/* Icon */}
       <div
-        className="w-12 h-12 rounded-xl flex items-center justify-center"
+        className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shrink-0"
         style={{ background: bg }}
       >
-        <Icon className="w-6 h-6" style={{ color }} strokeWidth={1.8} />
+        <Icon className="w-7 h-7" style={{ color }} strokeWidth={1.6} />
       </div>
-      <div>
-        <h3 className="font-serif font-bold text-[var(--navy)] text-lg mb-2">{title}</h3>
-        <p className="text-[var(--muted-foreground)] text-sm leading-relaxed">{description}</p>
-      </div>
-      <div className="mt-auto flex items-center gap-1.5 text-xs font-semibold" style={{ color }}>
+
+      {/* Title */}
+      <h3 className="font-serif font-bold text-white text-lg leading-snug mb-3">
+        {title}
+      </h3>
+
+      {/* Description */}
+      <p className="text-white/60 text-sm leading-relaxed flex-1">
+        {description}
+      </p>
+
+      {/* Learn More — card itself is already a Link */}
+      <span className="mt-5 flex items-center gap-1.5 text-xs font-semibold" style={{ color: accent }}>
         Learn More
-        <ArrowRight
-          className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"
-        />
-      </div>
-    </motion.article>
+        <ArrowRight className="w-3.5 h-3.5" />
+      </span>
+    </div>
   )
 }
 
 export default function Services() {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: "-80px" })
+  const fanCards = services.map((s) => ({
+    linkUrl: `/services/${s.slug}`,
+    content: <ServiceCardContent {...s} />,
+  }))
 
   return (
-    <section id="services" className="py-24 bg-[var(--surface)]">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+    <section id="services" className="relative bg-[#030308]" style={{ overflowX: "clip", paddingTop: "80px", paddingBottom: "96px" }}>
+
+
+      {/* Content */}
+      <div className="relative max-w-7xl mx-auto px-4 md:px-8" style={{ zIndex: 2 }}>
         {/* Header */}
         <motion.div
-          ref={ref}
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-center max-w-2xl mx-auto mb-16"
+          className="text-center max-w-2xl mx-auto mb-10"
         >
-          <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[var(--saffron)] mb-3">
+          <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#f97316] mb-3">
             What We Offer
           </span>
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-[var(--navy)] text-balance mb-4">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-white text-balance mb-4">
             Comprehensive Compliance Services for Growing Businesses
           </h2>
-          <p className="text-[var(--muted-foreground)] leading-relaxed">
+          <p className="text-white/60 leading-relaxed">
             From GST and income tax to company registration and loan syndication — we handle
             every financial compliance requirement so you can focus on growth.
           </p>
         </motion.div>
 
-        {/* Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {services.map((service) => (
-            <ServiceCard key={service.title} {...service} />
-          ))}
-        </motion.div>
+        {/* Fan card animation */}
+        <div className="flex justify-center">
+          <SocialCards cards={fanCards} cardWidth={300} cardHeight={420} containerHeight={560} />
+        </div>
 
         {/* Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.7, duration: 0.5 }}
-          className="mt-12 text-center"
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="mt-10 text-center"
         >
-          <p className="text-[var(--muted-foreground)] text-sm mb-4">
+          <p className="text-white/40 text-sm mb-4">
             Not sure which service you need?
           </p>
           <motion.button
@@ -164,7 +174,7 @@ export default function Services() {
             }}
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--navy)] text-white font-semibold rounded-full text-sm hover:bg-[var(--navy-light)] transition-colors shadow"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#f97316] text-white font-semibold rounded-full text-sm hover:bg-orange-500 transition-colors shadow-lg"
           >
             Talk to Our CA Expert
             <ArrowRight className="w-4 h-4" />

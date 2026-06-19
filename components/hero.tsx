@@ -2,6 +2,9 @@
 
 import { motion } from "framer-motion"
 import { ArrowRight, CheckCircle, PhoneCall } from "lucide-react"
+import dynamic from "next/dynamic"
+
+const WaveShaderBg = dynamic(() => import("@/components/ui/wave-shader-bg"), { ssr: false })
 
 const highlights = [
   "GST & Income Tax Filing",
@@ -28,47 +31,16 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-[var(--navy)] min-h-[92vh] flex items-center"
+      className="relative overflow-hidden bg-black min-h-[92vh] flex items-center"
     >
-      {/* Background pattern */}
-      <div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `radial-gradient(circle at 20% 50%, var(--saffron) 0%, transparent 50%),
-                            radial-gradient(circle at 80% 20%, var(--emerald) 0%, transparent 40%)`,
-        }}
-      />
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: `repeating-linear-gradient(
-            0deg, transparent, transparent 40px,
-            rgba(255,255,255,1) 40px, rgba(255,255,255,1) 41px
-          ), repeating-linear-gradient(
-            90deg, transparent, transparent 40px,
-            rgba(255,255,255,1) 40px, rgba(255,255,255,1) 41px
-          )`,
-        }}
-      />
+      {/* Wave shader background */}
+      <WaveShaderBg />
 
-      {/* Floating accent shapes */}
-      <motion.div
-        animate={{ y: [0, -18, 0], rotate: [0, 8, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-20 right-[8%] w-24 h-24 rounded-2xl bg-[var(--saffron)] opacity-15"
-      />
-      <motion.div
-        animate={{ y: [0, 14, 0], rotate: [0, -6, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        className="absolute bottom-24 left-[5%] w-16 h-16 rounded-full bg-[var(--emerald)] opacity-20"
-      />
-      <motion.div
-        animate={{ scale: [1, 1.1, 1] }}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-1/3 right-[22%] w-10 h-10 rounded-full border-2 border-white opacity-10"
-      />
+      {/* Subtle dark overlay so text stays legible over the shader */}
+      <div className="absolute inset-0 bg-black/20" style={{ zIndex: 1 }} />
 
-      <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-24 flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+      {/* All content sits above the shader */}
+      <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-24 flex flex-col lg:flex-row items-center gap-12 lg:gap-16" style={{ zIndex: 2 }}>
         {/* Left Content */}
         <div className="flex-1 text-center lg:text-left">
           {/* Badge */}
@@ -77,10 +49,10 @@ export default function Hero() {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white/90 text-xs font-medium px-4 py-1.5 rounded-full mb-6"
+            className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-xs font-medium px-4 py-1.5 rounded-full mb-6"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--saffron)] animate-pulse" />
-            Mumbai&apos;s Trusted CA Firm for MSMEs
+            Mumbai&apos;s Trusted Accounting & Tax Company
           </motion.div>
 
           {/* Headline */}
@@ -96,7 +68,7 @@ export default function Hero() {
             <br />
             Mumbaikars
             <br />
-            <span className="text-white/80 text-3xl md:text-4xl lg:text-5xl font-light">
+            <span className="text-white text-3xl md:text-4xl lg:text-5xl font-light">
               Through Tax Compliance
             </span>
           </motion.h1>
@@ -107,7 +79,7 @@ export default function Hero() {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            className="mt-6 text-white/70 text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0"
+            className="mt-6 text-white/80 text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0"
           >
             We provide professional accounting and tax compliance services for businesses
             with turnover under ₹25 Crore and salaried individuals across Mumbai &amp;
@@ -125,7 +97,7 @@ export default function Hero() {
             {highlights.map((item) => (
               <li
                 key={item}
-                className="flex items-center gap-2 text-white/80 text-sm bg-white/10 px-3 py-1.5 rounded-full"
+                className="flex items-center gap-2 text-white text-sm bg-white/10 border border-white/15 px-3 py-1.5 rounded-full"
               >
                 <CheckCircle className="w-4 h-4 text-[var(--saffron)] shrink-0" />
                 {item}
@@ -173,21 +145,21 @@ export default function Hero() {
             {/* Back card */}
             <div className="absolute -top-4 -left-4 w-full h-full bg-white/5 border border-white/10 rounded-2xl" />
             {/* Front card */}
-            <div className="relative bg-white/10 border border-white/20 backdrop-blur-sm rounded-2xl p-8 text-white">
+            <div className="relative bg-black/40 border border-white/20 backdrop-blur-md rounded-2xl p-8 text-white">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-full bg-[var(--saffron)] flex items-center justify-center shrink-0">
                   <span className="text-white font-bold text-sm">CA</span>
                 </div>
                 <div>
                   <p className="font-semibold text-sm">CA Ram Gavade</p>
-                  <p className="text-white/60 text-xs">Chief Knowledge Officer</p>
+                  <p className="text-white/70 text-xs">Chief Knowledge Officer</p>
                 </div>
               </div>
 
               <h2 className="font-serif text-xl font-bold mb-3 text-white">
-                CA 4 India Knowledge Solutions
+                CA 4 India Knowledge Solutions Private Limited
               </h2>
-              <p className="text-white/70 text-sm leading-relaxed mb-6">
+              <p className="text-white/80 text-sm leading-relaxed mb-6">
                 Registered CA firm dedicated to empowering Mumbai&apos;s MSME ecosystem with
                 professional-grade financial compliance, advisory, and accounting services.
               </p>
@@ -201,12 +173,12 @@ export default function Hero() {
                 ].map(({ label, value }) => (
                   <div key={label} className="bg-white/10 rounded-xl px-4 py-3">
                     <p className="text-[var(--saffron)] font-bold text-xl">{value}</p>
-                    <p className="text-white/60 text-xs mt-0.5">{label}</p>
+                    <p className="text-white/70 text-xs mt-0.5">{label}</p>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-6 flex items-center gap-2 text-xs text-white/50">
+              <div className="mt-6 flex items-center gap-2 text-xs text-white/60">
                 <span className="w-1.5 h-1.5 rounded-full bg-[var(--emerald)] animate-pulse" />
                 Sion, Mumbai 400022
               </div>
@@ -215,12 +187,11 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Bottom wave */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 60" className="w-full" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="oklch(0.974 0.008 240)" />
-        </svg>
-      </div>
+      {/* Bottom fade — tall so the shader bleeds smoothly into the section below */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
+        style={{ zIndex: 3, background: "linear-gradient(to bottom, transparent 0%, #000000 100%)" }}
+      />
     </section>
   )
 }
