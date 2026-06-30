@@ -6,7 +6,11 @@ import { Search, X, ArrowRight } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { servicesData, findService, ServiceDetail } from "@/lib/services-data"
 
-export default function ServiceSearch() {
+interface ServiceSearchProps {
+  variant?: "navbar" | "hero"
+}
+
+export default function ServiceSearch({ variant = "navbar" }: ServiceSearchProps) {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState("")
   const [results, setResults] = useState<ServiceDetail[]>([])
@@ -59,17 +63,33 @@ export default function ServiceSearch() {
   }
 
   return (
-    <div className="relative" ref={containerRef}>
-      {/* Trigger button */}
-      <button
-        onClick={() => setOpen(true)}
-        className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 hover:bg-white/25 border border-white/20 text-white/80 hover:text-white text-xs transition-all"
-        aria-label="Search services"
-      >
-        <Search className="w-3.5 h-3.5" />
-        <span className="hidden sm:inline">Search services…</span>
-        <kbd className="hidden sm:inline text-white/40 text-[10px] font-mono bg-white/10 px-1 rounded">⌘K</kbd>
-      </button>
+    <div className={variant === "hero" ? "w-full max-w-xl" : "relative"} ref={containerRef}>
+      {/* Trigger */}
+      {variant === "hero" ? (
+        <button
+          onClick={() => setOpen(true)}
+          className="w-full flex items-center gap-3 px-5 py-4 rounded-2xl border border-blue-200 bg-white shadow-md hover:shadow-lg hover:border-blue-400 transition-all text-left group"
+          aria-label="Search services"
+        >
+          <Search className="w-5 h-5 text-blue-400 shrink-0" />
+          <span className="flex-1 text-sm text-slate-400 group-hover:text-slate-500 transition-colors">
+            Search for a service… e.g. GST Filing, ITR, Company Registration
+          </span>
+          <kbd className="text-slate-300 text-[11px] font-mono bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+            ⌘K
+          </kbd>
+        </button>
+      ) : (
+        <button
+          onClick={() => setOpen(true)}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-200 bg-white hover:bg-blue-50 text-slate-500 hover:text-blue-600 text-xs transition-all shadow-sm"
+          aria-label="Search services"
+        >
+          <Search className="w-3.5 h-3.5" />
+          <span className="hidden sm:inline">Search services…</span>
+          <kbd className="hidden sm:inline text-slate-300 text-[10px] font-mono bg-slate-100 px-1 rounded">⌘K</kbd>
+        </button>
+      )}
 
       {/* Overlay + modal */}
       <AnimatePresence>
@@ -94,7 +114,7 @@ export default function ServiceSearch() {
               <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
                 {/* Search input */}
                 <div className="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100">
-                  <Search className="w-4.5 h-4.5 text-gray-400 shrink-0 w-5 h-5" />
+                  <Search className="w-5 h-5 text-gray-400 shrink-0" />
                   <input
                     ref={inputRef}
                     type="text"

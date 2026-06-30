@@ -1,10 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight, CheckCircle, PhoneCall } from "lucide-react"
+import { ArrowRight, CheckCircle, PhoneCall, Shield, TrendingUp, Award } from "lucide-react"
 import dynamic from "next/dynamic"
 
-const WaveShaderBg = dynamic(() => import("@/components/ui/wave-shader-bg"), { ssr: false })
+const ServiceSearch = dynamic(() => import("@/components/ui/service-search"), { ssr: false })
 
 const highlights = [
   "GST & Income Tax Filing",
@@ -13,12 +13,19 @@ const highlights = [
   "Loan Syndication",
 ]
 
+const stats = [
+  { label: "Years Experience", value: "10+", icon: Award },
+  { label: "Clients Served", value: "500+", icon: Shield },
+  { label: "Tax Filings Done", value: "2000+", icon: TrendingUp },
+  { label: "GST Returns", value: "1500+", icon: CheckCircle },
+]
+
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.12, duration: 0.6, ease: "easeOut" },
+    transition: { delay: i * 0.1, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const },
   }),
 }
 
@@ -31,155 +38,188 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-black min-h-[92vh] flex items-center"
+      className="relative overflow-hidden min-h-[92vh] flex flex-col justify-center"
+      style={{ background: "linear-gradient(135deg, #020b18 0%, #05183a 40%, #0a2560 70%, #0d3080 100%)" }}
     >
-      {/* Wave shader background */}
-      <WaveShaderBg />
+      {/* Background — CSS only, no JS animations for perf */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true" style={{ zIndex: 0 }}>
+        <div className="absolute -top-32 -right-32 w-[500px] h-[500px] rounded-full opacity-20"
+          style={{ background: "radial-gradient(circle, #3b82f6 0%, transparent 70%)" }} />
+        <div className="absolute -bottom-24 -left-24 w-[350px] h-[350px] rounded-full opacity-15"
+          style={{ background: "radial-gradient(circle, #1d4ed8 0%, transparent 70%)" }} />
+        <div className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }} />
+      </div>
 
-      {/* Subtle dark overlay so text stays legible over the shader */}
-      <div className="absolute inset-0 bg-black/20" style={{ zIndex: 1 }} />
+      {/* Desktop top-right search */}
+      <motion.div
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.4 }}
+        className="hidden lg:flex flex-col items-end absolute top-5 right-8"
+        style={{ zIndex: 4 }}
+      >
+        <p className="text-blue-200/50 text-xs mb-2 tracking-wide">Search for any service</p>
+        <div className="w-80">
+          <ServiceSearch variant="hero" />
+        </div>
+      </motion.div>
 
-      {/* All content sits above the shader */}
-      <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-24 flex flex-col lg:flex-row items-center gap-12 lg:gap-16" style={{ zIndex: 2 }}>
-        {/* Left Content */}
-        <div className="flex-1 text-center lg:text-left">
+      {/* Main content */}
+      <div
+        className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-16 md:py-24 flex flex-col lg:flex-row items-center gap-10 lg:gap-12"
+        style={{ zIndex: 2 }}
+      >
+        {/* Left — text */}
+        <div className="flex-1 w-full text-center lg:text-left">
           {/* Badge */}
           <motion.div
-            custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white text-xs font-medium px-4 py-1.5 rounded-full mb-6"
+            custom={0} variants={fadeUp} initial="hidden" animate="visible"
+            className="inline-flex items-center gap-2 text-blue-200 text-xs font-semibold px-4 py-1.5 rounded-full mb-5 border border-blue-400/30"
+            style={{ background: "rgba(59,130,246,0.15)" }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--saffron)] animate-pulse" />
-            Mumbai&apos;s Trusted Accounting & Tax Company
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+            Mumbai&apos;s Trusted Online Accounting Company
           </motion.div>
 
           {/* Headline */}
           <motion.h1
-            custom={1}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight text-balance"
+            custom={1} variants={fadeUp} initial="hidden" animate="visible"
+            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight"
           >
             Serving{" "}
-            <span className="text-[var(--saffron)]">Atmanirbhar</span>
+            <span style={{ color: "#60a5fa" }}>Atmanirbhar</span>
+            <br />Mumbaikars
             <br />
-            Mumbaikars
-            <br />
-            <span className="text-white text-3xl md:text-4xl lg:text-5xl font-light">
+            <span className="text-white/70 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light">
               Through Tax Compliance
             </span>
           </motion.h1>
 
-          {/* Sub text */}
+          {/* Subtext */}
           <motion.p
-            custom={2}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className="mt-6 text-white/80 text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0"
+            custom={2} variants={fadeUp} initial="hidden" animate="visible"
+            className="mt-5 text-blue-100/75 text-sm sm:text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0"
           >
-            We provide professional accounting and tax compliance services for businesses
-            with turnover under ₹25 Crore and salaried individuals across Mumbai &amp;
-            Maharashtra.
+            Professional accounting and tax compliance for businesses under ₹25 Cr turnover
+            and salaried individuals across Mumbai &amp; Maharashtra.
           </motion.p>
 
           {/* Highlights */}
           <motion.ul
-            custom={3}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className="mt-6 flex flex-wrap gap-3 justify-center lg:justify-start"
+            custom={3} variants={fadeUp} initial="hidden" animate="visible"
+            className="mt-5 flex flex-wrap gap-2 justify-center lg:justify-start"
           >
             {highlights.map((item) => (
               <li
                 key={item}
-                className="flex items-center gap-2 text-white text-sm bg-white/10 border border-white/15 px-3 py-1.5 rounded-full"
+                className="flex items-center gap-1.5 text-white text-xs sm:text-sm px-3 py-1.5 rounded-full border border-blue-400/25"
+                style={{ background: "rgba(59,130,246,0.12)" }}
               >
-                <CheckCircle className="w-4 h-4 text-[var(--saffron)] shrink-0" />
+                <CheckCircle className="w-3.5 h-3.5 text-blue-400 shrink-0" />
                 {item}
               </li>
             ))}
           </motion.ul>
 
-          {/* CTA buttons */}
+          {/* CTAs */}
           <motion.div
-            custom={4}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className="mt-8 flex flex-wrap gap-4 justify-center lg:justify-start"
+            custom={4} variants={fadeUp} initial="hidden" animate="visible"
+            className="mt-7 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start"
           >
-            <motion.button
+            <button
               onClick={() => scrollTo("#contact")}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
-              className="flex items-center gap-2 px-6 py-3 bg-[var(--saffron)] text-white font-semibold rounded-full shadow-lg hover:bg-[var(--saffron-light)] transition-colors text-sm"
+              className="flex items-center justify-center gap-2 px-6 py-3.5 font-semibold rounded-full text-sm text-white active:scale-95 transition-transform"
+              style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 4px 20px rgba(37,99,235,0.45)" }}
             >
               Get Free Consultation
               <ArrowRight className="w-4 h-4" />
-            </motion.button>
-            <motion.a
+            </button>
+            <a
               href="tel:9892055115"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
-              className="flex items-center gap-2 px-6 py-3 bg-white/10 border border-white/30 text-white font-semibold rounded-full hover:bg-white/20 transition-colors text-sm"
+              className="flex items-center justify-center gap-2 px-6 py-3.5 text-white font-semibold rounded-full border border-white/25 text-sm active:scale-95 transition-transform"
+              style={{ background: "rgba(255,255,255,0.08)" }}
             >
-              <PhoneCall className="w-4 h-4" />
+              <PhoneCall className="w-4 h-4 text-blue-300" />
               Call: 9892055115
-            </motion.a>
+            </a>
+          </motion.div>
+
+          {/* Mobile search — shown only on small screens */}
+          <motion.div
+            custom={5} variants={fadeUp} initial="hidden" animate="visible"
+            className="mt-6 lg:hidden"
+          >
+            <p className="text-blue-200/50 text-xs mb-2 text-center">Search for any service</p>
+            <ServiceSearch variant="hero" />
           </motion.div>
         </div>
 
-        {/* Right Card Stack */}
+        {/* Right — CA card */}
         <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.5, duration: 0.7, ease: "easeOut" }}
-          className="flex-1 max-w-md w-full"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.6, ease: "easeOut" }}
+          className="w-full lg:flex-1 lg:max-w-md"
         >
           <div className="relative">
-            {/* Back card */}
-            <div className="absolute -top-4 -left-4 w-full h-full bg-white/5 border border-white/10 rounded-2xl" />
-            {/* Front card */}
-            <div className="relative bg-black/40 border border-white/20 backdrop-blur-md rounded-2xl p-8 text-white">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-[var(--saffron)] flex items-center justify-center shrink-0">
-                  <span className="text-white font-bold text-sm">CA</span>
-                </div>
+            <div
+              className="absolute -inset-3 rounded-3xl opacity-25 blur-2xl"
+              style={{ background: "linear-gradient(135deg, #3b82f6, #1d4ed8)" }}
+            />
+            <div
+              className="relative rounded-2xl p-6 md:p-8 text-white border border-white/15"
+              style={{ background: "rgba(255,255,255,0.07)", backdropFilter: "blur(20px)" }}
+            >
+              <div
+                className="absolute top-0 left-8 right-8 h-0.5 rounded-full"
+                style={{ background: "linear-gradient(90deg, transparent, #60a5fa, transparent)" }}
+              />
+
+              <div className="flex items-center gap-3 mb-5">
+                <div
+                  className="w-11 h-11 rounded-full flex items-center justify-center shrink-0 text-white font-bold text-sm"
+                  style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)" }}
+                >CA</div>
                 <div>
-                  <p className="font-semibold text-sm">CA Ram Gavade</p>
-                  <p className="text-white/70 text-xs">Chief Knowledge Officer</p>
+                  <p className="font-semibold text-sm text-white">CA Ram Gavade</p>
+                  <p className="text-blue-300 text-xs">Chief Knowledge Officer</p>
+                </div>
+                <div className="ml-auto flex items-center gap-1.5 text-xs text-blue-300">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  Active
                 </div>
               </div>
 
-              <h2 className="font-serif text-xl font-bold mb-3 text-white">
-                CA 4 India Knowledge Solutions Private Limited
+              <h2 className="font-serif text-base md:text-lg font-bold mb-2 text-white">
+                CA 4 India Knowledge Solutions
               </h2>
-              <p className="text-white/80 text-sm leading-relaxed mb-6">
-                Registered CA firm dedicated to empowering Mumbai&apos;s MSME ecosystem with
-                professional-grade financial compliance, advisory, and accounting services.
+              <p className="text-blue-100/65 text-sm leading-relaxed mb-5">
+                Online Accountant empowering Mumbai&apos;s MSME ecosystem with professional
+                financial compliance, advisory, and accounting services.
               </p>
 
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { label: "Years Experience", value: "10+" },
-                  { label: "Clients Served", value: "500+" },
-                  { label: "Tax Filings Done", value: "2000+" },
-                  { label: "GST Returns", value: "1500+" },
-                ].map(({ label, value }) => (
-                  <div key={label} className="bg-white/10 rounded-xl px-4 py-3">
-                    <p className="text-[var(--saffron)] font-bold text-xl">{value}</p>
-                    <p className="text-white/70 text-xs mt-0.5">{label}</p>
+              <div className="grid grid-cols-2 gap-2.5">
+                {stats.map(({ label, value, icon: Icon }) => (
+                  <div
+                    key={label}
+                    className="rounded-xl px-3 py-2.5 border border-blue-400/20"
+                    style={{ background: "rgba(59,130,246,0.1)" }}
+                  >
+                    <div className="flex items-center gap-1.5 mb-0.5">
+                      <Icon className="w-3 h-3 text-blue-400" strokeWidth={2} />
+                      <p className="text-blue-200 font-bold text-lg leading-none">{value}</p>
+                    </div>
+                    <p className="text-white/45 text-[10px]">{label}</p>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-6 flex items-center gap-2 text-xs text-white/60">
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--emerald)] animate-pulse" />
+              <div className="mt-4 pt-4 border-t border-white/10 flex items-center gap-2 text-xs text-blue-200/50">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
                 Sion, Mumbai 400022
               </div>
             </div>
@@ -187,10 +227,9 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Bottom fade — tall so the shader bleeds smoothly into the section below */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
-        style={{ zIndex: 3, background: "linear-gradient(to bottom, transparent 0%, #000000 100%)" }}
+        className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+        style={{ zIndex: 3, background: "linear-gradient(to bottom, transparent 0%, #020b18 100%)" }}
       />
     </section>
   )

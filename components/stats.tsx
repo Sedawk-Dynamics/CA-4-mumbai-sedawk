@@ -2,12 +2,13 @@
 
 import { useRef, useEffect, useState } from "react"
 import { motion, useInView } from "framer-motion"
+import { Users, FileCheck, Clock, ThumbsUp } from "lucide-react"
 
 const stats = [
-  { value: 500, suffix: "+", label: "Clients Served", description: "MSMEs & individuals" },
-  { value: 2000, suffix: "+", label: "Tax Filings Done", description: "Across all categories" },
-  { value: 10, suffix: "+", label: "Years of Expertise", description: "In practice" },
-  { value: 98, suffix: "%", label: "Client Satisfaction", description: "Based on client feedback" },
+  { value: 500, suffix: "+", label: "Clients Served", description: "MSMEs & individuals", icon: Users },
+  { value: 2000, suffix: "+", label: "Tax Filings Done", description: "Across all categories", icon: FileCheck },
+  { value: 10, suffix: "+", label: "Years of Expertise", description: "In practice", icon: Clock },
+  { value: 98, suffix: "%", label: "Client Satisfaction", description: "Based on client feedback", icon: ThumbsUp },
 ]
 
 function Counter({ target, suffix }: { target: number; suffix: string }) {
@@ -46,29 +47,32 @@ export default function Stats() {
   const inView = useInView(ref, { once: true, margin: "-60px" })
 
   return (
-    <section className="py-20 bg-[var(--navy)] overflow-hidden relative">
-      {/* Background decoration */}
+    <section className="py-20 overflow-hidden relative" style={{ background: "linear-gradient(135deg, #0f2044 0%, #1e3a8a 50%, #0f2044 100%)" }}>
+      {/* Grid pattern */}
       <div
-        className="absolute inset-0 opacity-5"
+        className="absolute inset-0 opacity-[0.04]"
         style={{
-          backgroundImage: `repeating-linear-gradient(
-            45deg,
-            transparent,
-            transparent 20px,
-            rgba(255,255,255,1) 20px,
-            rgba(255,255,255,1) 21px
-          )`,
+          backgroundImage: "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
         }}
       />
+      {/* Top line */}
+      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(96,165,250,0.4), transparent)" }} />
+      {/* Bottom line */}
+      <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(96,165,250,0.4), transparent)" }} />
+
+      {/* Animated glow orbs */}
       <motion.div
-        animate={{ x: [0, 40, 0] }}
+        animate={{ x: [0, 40, 0], opacity: [0.08, 0.14, 0.08] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-8 left-8 w-40 h-40 rounded-full bg-[var(--saffron)] opacity-10"
+        className="absolute top-8 left-8 w-40 h-40 rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, #3b82f6, transparent)" }}
       />
       <motion.div
-        animate={{ x: [0, -30, 0] }}
+        animate={{ x: [0, -30, 0], opacity: [0.06, 0.12, 0.06] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute bottom-8 right-8 w-32 h-32 rounded-full bg-[var(--emerald)] opacity-10"
+        className="absolute bottom-8 right-8 w-32 h-32 rounded-full pointer-events-none"
+        style={{ background: "radial-gradient(circle, #60a5fa, transparent)" }}
       />
 
       <div className="relative max-w-7xl mx-auto px-4 md:px-8" ref={ref}>
@@ -76,22 +80,28 @@ export default function Stats() {
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="text-center text-[var(--saffron)] text-xs font-semibold tracking-widest uppercase mb-12"
+          className="text-center text-blue-400 text-xs font-semibold tracking-widest uppercase mb-12"
         >
           Our Track Record
         </motion.p>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-          {stats.map(({ value, suffix, label, description }, i) => (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          {stats.map(({ value, suffix, label, description, icon: Icon }, i) => (
             <motion.div
               key={label}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.12, duration: 0.6 }}
-              className="text-center"
+              className="text-center rounded-2xl p-6 border border-blue-400/15"
+              style={{ background: "rgba(59,130,246,0.08)", backdropFilter: "blur(8px)" }}
             >
+              <div className="flex justify-center mb-3">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "rgba(59,130,246,0.2)" }}>
+                  <Icon className="w-5 h-5 text-blue-400" strokeWidth={1.8} />
+                </div>
+              </div>
               <Counter target={value} suffix={suffix} />
               <p className="text-white font-semibold text-sm mt-2">{label}</p>
-              <p className="text-white/50 text-xs mt-0.5">{description}</p>
+              <p className="text-blue-200/50 text-xs mt-0.5">{description}</p>
             </motion.div>
           ))}
         </div>

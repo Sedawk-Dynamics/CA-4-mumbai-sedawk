@@ -28,7 +28,10 @@ const scrollTo = (href: string) => {
 
 export default function Footer() {
   return (
-    <footer className="bg-[var(--navy-dark)] text-white/80">
+    <footer style={{ background: "#020b18" }} className="text-white/70">
+      {/* Top border glow */}
+      <div className="h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(59,130,246,0.5), transparent)" }} />
+
       {/* Main footer */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand */}
@@ -40,21 +43,21 @@ export default function Footer() {
             height={50}
             className="h-12 w-auto object-contain brightness-200 mb-4"
           />
-          <p className="text-sm leading-relaxed text-white/60 mb-5">
+          <p className="text-sm leading-relaxed text-white/50 mb-5">
             CA 4 India Knowledge Solutions Pvt. Ltd. — Serving Atmanirbhar Mumbaikars
             through expert tax compliance and accounting services.
           </p>
           <div className="flex flex-col gap-2.5">
-            <a href="tel:9892055115" className="flex items-center gap-2 text-sm hover:text-[var(--saffron)] transition-colors">
-              <Phone className="w-4 h-4 text-[var(--saffron)] shrink-0" />
+            <a href="tel:9892055115" className="flex items-center gap-2 text-sm hover:text-blue-300 transition-colors">
+              <Phone className="w-4 h-4 text-blue-400 shrink-0" />
               9892055115
             </a>
-            <a href="mailto:info@ca-4-india.in" className="flex items-center gap-2 text-sm hover:text-[var(--saffron)] transition-colors">
-              <Mail className="w-4 h-4 text-[var(--saffron)] shrink-0" />
+            <a href="mailto:info@ca-4-india.in" className="flex items-center gap-2 text-sm hover:text-blue-300 transition-colors">
+              <Mail className="w-4 h-4 text-blue-400 shrink-0" />
               info@ca-4-india.in
             </a>
-            <p className="flex items-start gap-2 text-sm text-white/60">
-              <MapPin className="w-4 h-4 text-[var(--saffron)] shrink-0 mt-0.5" />
+            <p className="flex items-start gap-2 text-sm text-white/50">
+              <MapPin className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
               106 Rajgir Sadan, Laxmi Baug, Sion, Mumbai 400022
             </p>
           </div>
@@ -70,7 +73,7 @@ export default function Footer() {
               <li key={s}>
                 <button
                   onClick={() => scrollTo("#services")}
-                  className="text-sm text-white/60 hover:text-[var(--saffron)] transition-colors text-left"
+                  className="text-sm text-white/50 hover:text-blue-300 transition-colors text-left"
                 >
                   {s}
                 </button>
@@ -89,7 +92,7 @@ export default function Footer() {
               <li key={label}>
                 <button
                   onClick={() => scrollTo(href)}
-                  className="text-sm text-white/60 hover:text-[var(--saffron)] transition-colors"
+                  className="text-sm text-white/50 hover:text-blue-300 transition-colors"
                 >
                   {label}
                 </button>
@@ -103,7 +106,7 @@ export default function Footer() {
           <h3 className="text-white font-semibold text-sm uppercase tracking-widest mb-5">
             Need Help?
           </h3>
-          <p className="text-white/60 text-sm leading-relaxed mb-5">
+          <p className="text-white/50 text-sm leading-relaxed mb-5">
             Get a free consultation with CA Ram Gavade for your GST, income tax, or
             company compliance needs.
           </p>
@@ -111,20 +114,21 @@ export default function Footer() {
             onClick={() => scrollTo("#contact")}
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
-            className="px-5 py-2.5 bg-[var(--saffron)] text-white font-semibold text-sm rounded-full hover:bg-[var(--saffron-light)] transition-colors shadow"
+            className="px-5 py-2.5 text-white font-semibold text-sm rounded-full shadow-lg transition-all"
+            style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 4px 16px rgba(37,99,235,0.35)" }}
           >
             Free Consultation
           </motion.button>
 
           <div className="mt-6">
-            <p className="text-white/40 text-xs uppercase tracking-wider mb-2">Follow Us</p>
+            <p className="text-white/30 text-xs uppercase tracking-wider mb-2">Follow Us</p>
             <div className="flex gap-3">
               {/* LinkedIn */}
               <a
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-[var(--saffron)] flex items-center justify-center transition-colors"
+                className="w-8 h-8 rounded-full border border-blue-500/30 hover:bg-blue-600 hover:border-blue-600 flex items-center justify-center transition-colors"
                 aria-label="LinkedIn"
               >
                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -136,7 +140,7 @@ export default function Footer() {
                 href="https://wa.me/919892055115"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#25D366] flex items-center justify-center transition-colors"
+                className="w-8 h-8 rounded-full border border-blue-500/30 hover:bg-[#25D366] hover:border-[#25D366] flex items-center justify-center transition-colors"
                 aria-label="WhatsApp"
               >
                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -149,8 +153,8 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
+      <div className="border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/30">
           <p>
             &copy; {new Date().getFullYear()} CA 4 India Knowledge Solutions Pvt. Ltd. All rights reserved.
           </p>

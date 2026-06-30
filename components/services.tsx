@@ -19,9 +19,9 @@ const services = [
     slug: "gst-filing",
     description:
       "Complete GST registration, return filing (GSTR-1, 3B, 9), reconciliation, and advisory for businesses under the GST framework.",
-    color: "#f97316",
-    bg: "rgba(249,115,22,0.12)",
-    accent: "#f97316",
+    color: "#60a5fa",
+    bg: "rgba(96,165,250,0.12)",
+    accent: "#3b82f6",
   },
   {
     icon: FileText,
@@ -39,9 +39,9 @@ const services = [
     slug: "tds-compliance",
     description:
       "TDS deduction, deposit, return filing (Form 24Q, 26Q), and TDS certificates (Form 16/16A) for employees and vendors.",
-    color: "#34d399",
-    bg: "rgba(52,211,153,0.12)",
-    accent: "#10b981",
+    color: "#a5b4fc",
+    bg: "rgba(165,180,252,0.12)",
+    accent: "#818cf8",
   },
   {
     icon: Building2,
@@ -49,9 +49,9 @@ const services = [
     slug: "company-formation",
     description:
       "Private limited company, LLP, partnership firm, and sole proprietorship registration with MCA, Udyam, and Shop Act.",
-    color: "#f97316",
-    bg: "rgba(249,115,22,0.12)",
-    accent: "#f97316",
+    color: "#60a5fa",
+    bg: "rgba(96,165,250,0.12)",
+    accent: "#3b82f6",
   },
   {
     icon: Scale,
@@ -69,16 +69,15 @@ const services = [
     slug: "loan-syndication",
     description:
       "Business loans, working capital finance, MSME loan facilitation, CMA data preparation, and project finance advisory.",
-    color: "#34d399",
-    bg: "rgba(52,211,153,0.12)",
-    accent: "#10b981",
+    color: "#67e8f9",
+    bg: "rgba(103,232,249,0.10)",
+    accent: "#22d3ee",
   },
 ]
 
 function ServiceCardContent({
   icon: Icon,
   title,
-  slug,
   description,
   color,
   bg,
@@ -86,8 +85,8 @@ function ServiceCardContent({
 }: (typeof services)[0]) {
   return (
     <div
-      className="w-full h-full flex flex-col p-7 rounded-2xl border border-white/25"
-      style={{ background: "rgba(15,20,50,0.35)", backdropFilter: "blur(16px)" }}
+      className="w-full h-full flex flex-col p-7 rounded-2xl border border-blue-400/20"
+      style={{ background: "rgba(5,24,58,0.6)", backdropFilter: "blur(16px)" }}
     >
       {/* Accent top bar */}
       <div className="w-10 h-1 rounded-full mb-6 shrink-0" style={{ background: accent }} />
@@ -106,11 +105,11 @@ function ServiceCardContent({
       </h3>
 
       {/* Description */}
-      <p className="text-white/60 text-sm leading-relaxed flex-1">
+      <p className="text-blue-100/55 text-sm leading-relaxed flex-1">
         {description}
       </p>
 
-      {/* Learn More — card itself is already a Link */}
+      {/* Learn More */}
       <span className="mt-5 flex items-center gap-1.5 text-xs font-semibold" style={{ color: accent }}>
         Learn More
         <ArrowRight className="w-3.5 h-3.5" />
@@ -126,8 +125,33 @@ export default function Services() {
   }))
 
   return (
-    <section id="services" className="relative bg-[#030308]" style={{ overflowX: "clip", paddingTop: "80px", paddingBottom: "96px" }}>
-
+    <section
+      id="services"
+      className="relative"
+      style={{
+        overflowX: "clip",
+        paddingTop: "80px",
+        paddingBottom: "96px",
+        background: "linear-gradient(180deg, #020b18 0%, #05183a 50%, #020b18 100%)",
+      }}
+    >
+      {/* Decorative glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
+      >
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full opacity-10"
+          style={{ background: "radial-gradient(ellipse, #2563eb 0%, transparent 70%)" }}
+        />
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: "linear-gradient(rgba(255,255,255,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.4) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
+      </div>
 
       {/* Content */}
       <div className="relative max-w-7xl mx-auto px-4 md:px-8" style={{ zIndex: 2 }}>
@@ -139,13 +163,13 @@ export default function Services() {
           transition={{ duration: 0.6 }}
           className="text-center max-w-2xl mx-auto mb-10"
         >
-          <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[#f97316] mb-3">
+          <span className="inline-block text-xs font-semibold tracking-widest uppercase text-blue-400 mb-3">
             What We Offer
           </span>
           <h2 className="font-serif text-3xl md:text-4xl font-bold text-white text-balance mb-4">
             Comprehensive Compliance Services for Growing Businesses
           </h2>
-          <p className="text-white/60 leading-relaxed">
+          <p className="text-blue-100/60 leading-relaxed">
             From GST and income tax to company registration and loan syndication — we handle
             every financial compliance requirement so you can focus on growth.
           </p>
@@ -164,7 +188,7 @@ export default function Services() {
           transition={{ delay: 0.4, duration: 0.5 }}
           className="mt-10 text-center"
         >
-          <p className="text-white/40 text-sm mb-4">
+          <p className="text-blue-200/40 text-sm mb-4">
             Not sure which service you need?
           </p>
           <motion.button
@@ -174,7 +198,8 @@ export default function Services() {
             }}
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#f97316] text-white font-semibold rounded-full text-sm hover:bg-orange-500 transition-colors shadow-lg"
+            className="inline-flex items-center gap-2 px-6 py-3 text-white font-semibold rounded-full text-sm shadow-lg transition-all"
+            style={{ background: "linear-gradient(135deg, #2563eb, #1d4ed8)", boxShadow: "0 4px 20px rgba(37,99,235,0.4)" }}
           >
             Talk to Our CA Expert
             <ArrowRight className="w-4 h-4" />

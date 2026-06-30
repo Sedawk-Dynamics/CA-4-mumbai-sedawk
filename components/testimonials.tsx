@@ -40,7 +40,11 @@ export default function Testimonials() {
   const next = () => setCurrent((c) => (c + 1) % testimonials.length)
 
   return (
-    <section className="py-24 bg-[var(--surface)]" ref={ref}>
+    <section className="py-24 relative" style={{ background: "#f0f6ff" }} ref={ref}>
+      {/* Top/bottom border lines */}
+      <div className="absolute top-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, #3b82f6, transparent)" }} />
+      <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, #3b82f6, transparent)" }} />
+
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         {/* Header */}
         <motion.div
@@ -49,13 +53,13 @@ export default function Testimonials() {
           transition={{ duration: 0.6 }}
           className="text-center mb-14"
         >
-          <span className="inline-block text-xs font-semibold tracking-widest uppercase text-[var(--saffron)] mb-3">
+          <span className="inline-block text-xs font-semibold tracking-widest uppercase text-blue-600 mb-3">
             Client Stories
           </span>
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-[var(--navy)] text-balance">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#0f2044] text-balance">
             Trusted by Mumbai&apos;s Business Community
           </h2>
-          <p className="mt-3 text-[var(--muted-foreground)] max-w-xl mx-auto leading-relaxed">
+          <p className="mt-3 text-slate-500 max-w-xl mx-auto leading-relaxed">
             Hear what our clients say about working with CA 4 Mumbai.
           </p>
         </motion.div>
@@ -68,22 +72,22 @@ export default function Testimonials() {
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.15, duration: 0.55 }}
-              className="bg-card rounded-2xl p-7 border border-[var(--border)] flex flex-col gap-4"
+              className="bg-white rounded-2xl p-7 border border-blue-100 flex flex-col gap-4 shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300"
             >
               <div className="flex items-center justify-between">
-                <Quote className="w-8 h-8 text-[var(--saffron)] opacity-60" />
+                <Quote className="w-8 h-8 text-blue-400 opacity-60" />
                 <div className="flex gap-0.5">
                   {Array.from({ length: t.rating }).map((_, j) => (
-                    <Star key={j} className="w-3.5 h-3.5 fill-[var(--saffron)] text-[var(--saffron)]" />
+                    <Star key={j} className="w-3.5 h-3.5 fill-blue-400 text-blue-400" />
                   ))}
                 </div>
               </div>
-              <p className="text-[var(--foreground)] text-sm leading-relaxed flex-1 italic">
+              <p className="text-slate-600 text-sm leading-relaxed flex-1 italic">
                 &quot;{t.quote}&quot;
               </p>
-              <div className="pt-4 border-t border-[var(--border)]">
-                <p className="font-semibold text-[var(--navy)] text-sm">{t.name}</p>
-                <p className="text-[var(--muted-foreground)] text-xs mt-0.5">
+              <div className="pt-4 border-t border-blue-50">
+                <p className="font-semibold text-[#0f2044] text-sm">{t.name}</p>
+                <p className="text-slate-400 text-xs mt-0.5">
                   {t.designation}, {t.company}
                 </p>
               </div>
@@ -101,22 +105,22 @@ export default function Testimonials() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -60 }}
                 transition={{ duration: 0.35 }}
-                className="bg-card rounded-2xl p-7 border border-[var(--border)]"
+                className="bg-white rounded-2xl p-7 border border-blue-100 shadow-sm"
               >
                 <div className="flex items-center justify-between mb-4">
-                  <Quote className="w-8 h-8 text-[var(--saffron)] opacity-60" />
+                  <Quote className="w-8 h-8 text-blue-400 opacity-60" />
                   <div className="flex gap-0.5">
                     {Array.from({ length: testimonials[current].rating }).map((_, j) => (
-                      <Star key={j} className="w-3.5 h-3.5 fill-[var(--saffron)] text-[var(--saffron)]" />
+                      <Star key={j} className="w-3.5 h-3.5 fill-blue-400 text-blue-400" />
                     ))}
                   </div>
                 </div>
-                <p className="text-[var(--foreground)] text-sm leading-relaxed italic mb-5">
+                <p className="text-slate-600 text-sm leading-relaxed italic mb-5">
                   &quot;{testimonials[current].quote}&quot;
                 </p>
-                <div className="pt-4 border-t border-[var(--border)]">
-                  <p className="font-semibold text-[var(--navy)] text-sm">{testimonials[current].name}</p>
-                  <p className="text-[var(--muted-foreground)] text-xs mt-0.5">
+                <div className="pt-4 border-t border-blue-50">
+                  <p className="font-semibold text-[#0f2044] text-sm">{testimonials[current].name}</p>
+                  <p className="text-slate-400 text-xs mt-0.5">
                     {testimonials[current].designation}, {testimonials[current].company}
                   </p>
                 </div>
@@ -128,7 +132,7 @@ export default function Testimonials() {
           <div className="flex items-center justify-center gap-4 mt-6">
             <button
               onClick={prev}
-              className="w-9 h-9 rounded-full border border-[var(--border)] flex items-center justify-center text-[var(--navy)] hover:bg-[var(--navy)] hover:text-white transition-colors"
+              className="w-9 h-9 rounded-full border border-blue-200 flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -138,14 +142,14 @@ export default function Testimonials() {
                 <button
                   key={i}
                   onClick={() => setCurrent(i)}
-                  className={`w-2 h-2 rounded-full transition-colors ${i === current ? "bg-[var(--saffron)]" : "bg-[var(--border)]"}`}
+                  className={`w-2 h-2 rounded-full transition-colors ${i === current ? "bg-blue-500" : "bg-blue-200"}`}
                   aria-label={`Go to testimonial ${i + 1}`}
                 />
               ))}
             </div>
             <button
               onClick={next}
-              className="w-9 h-9 rounded-full border border-[var(--border)] flex items-center justify-center text-[var(--navy)] hover:bg-[var(--navy)] hover:text-white transition-colors"
+              className="w-9 h-9 rounded-full border border-blue-200 flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-colors"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-4 h-4" />

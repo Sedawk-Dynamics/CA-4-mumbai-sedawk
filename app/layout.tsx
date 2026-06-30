@@ -6,12 +6,16 @@ import './globals.css'
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
+  display: 'swap',
+  preload: true,
 })
 
 const merriweather = Merriweather({
   subsets: ['latin'],
-  weight: ['300', '400', '700', '900'],
+  weight: ['400', '700'],
   variable: '--font-merriweather',
+  display: 'swap',
+  preload: true,
 })
 
 export const metadata: Metadata = {
@@ -27,13 +31,13 @@ export const metadata: Metadata = {
     'TDS filing',
     'MSME compliance',
   ],
-  generator: 'v0.app',
 }
 
 export const viewport = {
   themeColor: '#0d2665',
   width: 'device-width',
   initialScale: 1,
+  maximumScale: 5,
 }
 
 export default function RootLayout({
@@ -42,8 +46,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${merriweather.variable} bg-background`}>
-      <body className="font-sans antialiased">
+    <html lang="en" className={`${inter.variable} ${merriweather.variable}`}>
+      <body className="font-sans antialiased bg-[#020b18]">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

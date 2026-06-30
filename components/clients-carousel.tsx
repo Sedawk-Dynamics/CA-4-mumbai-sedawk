@@ -34,21 +34,17 @@ export function ClientsCarousel() {
   }, [])
 
   return (
-    <section className="relative py-16 md:py-24 bg-black -mt-px" style={{ overflowX: "clip" }}>
-
-      {/* Top gradient */}
+    <section
+      className="relative py-16 md:py-24 -mt-px"
+      style={{ overflowX: "clip", background: "#f0f6ff" }}
+    >
+      {/* Decorative blue glow */}
       <div
-        className="absolute top-0 left-0 right-0 h-48 pointer-events-none"
-        style={{ zIndex: 2, background: "linear-gradient(to bottom, #000000 0%, transparent 100%)" }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] rounded-full pointer-events-none opacity-20"
+        style={{ background: "radial-gradient(ellipse, #bfdbfe 0%, transparent 70%)" }}
       />
 
-      {/* Bottom gradient — bleeds into services Warp */}
-      <div
-        className="absolute bottom-0 left-0 right-0 pointer-events-none"
-        style={{ zIndex: 2, height: "220px", background: "linear-gradient(to top, #000000 0%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.4) 70%, transparent 100%)" }}
-      />
-
-      {/* Section Header — constrained */}
+      {/* Section Header */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10" style={{ zIndex: 3 }}>
         <motion.div
           className="text-center"
@@ -57,10 +53,13 @@ export function ClientsCarousel() {
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <span className="inline-block text-xs font-semibold tracking-widest uppercase text-blue-400 mb-3">
+            Our Clients
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#0f2044] mb-4">
             Trusted by Leading Companies
           </h2>
-          <p className="text-white/70 text-lg max-w-2xl mx-auto">
+          <p className="text-slate-500 text-lg max-w-2xl mx-auto">
             We serve businesses across various industries and sectors with our comprehensive accounting and compliance solutions.
           </p>
         </motion.div>
@@ -71,12 +70,12 @@ export function ClientsCarousel() {
         {/* Left fade */}
         <div
           className="absolute left-0 top-0 bottom-0 w-32 pointer-events-none z-10"
-          style={{ background: "linear-gradient(to right, #000000 0%, transparent 100%)" }}
+          style={{ background: "linear-gradient(to right, #f0f6ff 0%, transparent 100%)" }}
         />
         {/* Right fade */}
         <div
           className="absolute right-0 top-0 bottom-0 w-32 pointer-events-none z-10"
-          style={{ background: "linear-gradient(to left, #000000 0%, transparent 100%)" }}
+          style={{ background: "linear-gradient(to left, #f0f6ff 0%, transparent 100%)" }}
         />
 
         {/* Scrolling track */}
@@ -96,12 +95,14 @@ export function ClientsCarousel() {
               className="flex-shrink-0 h-20 flex items-center justify-center"
               style={{ width: "180px" }}
             >
-              <div className="w-full h-full rounded-xl border border-white/20 bg-white/10 hover:bg-white/20 backdrop-blur-sm group transition-all duration-300 flex items-center justify-center cursor-pointer">
+              <div
+                className="w-full h-full rounded-xl flex items-center justify-center cursor-pointer group transition-all duration-300 border border-blue-200 hover:border-blue-400 hover:shadow-md bg-white"
+              >
                 <div className="text-center px-4">
-                  <p className="text-sm font-bold text-white group-hover:text-[var(--saffron)] transition-colors tracking-wide">
+                  <p className="text-sm font-bold text-blue-700 group-hover:text-blue-500 transition-colors tracking-wide">
                     {client.initials}
                   </p>
-                  <p className="text-[11px] text-white/55 group-hover:text-white/80 transition-colors mt-0.5">
+                  <p className="text-[11px] text-slate-400 group-hover:text-blue-400 transition-colors mt-0.5">
                     {client.name}
                   </p>
                 </div>
@@ -111,10 +112,10 @@ export function ClientsCarousel() {
         </motion.div>
       </div>
 
-      {/* Bottom text — constrained */}
+      {/* Bottom text */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8" style={{ zIndex: 3 }}>
         <motion.p
-          className="text-sm text-white/50 text-center"
+          className="text-sm text-slate-400 text-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: '-100px' }}
