@@ -79,16 +79,7 @@ export function ClientsCarousel() {
         />
 
         {/* Scrolling track */}
-        <motion.div
-          className="flex gap-5 py-6"
-          animate={{ x: '-33.333%' }}
-          transition={{
-            duration: 40,
-            repeat: Infinity,
-            ease: 'linear',
-            repeatType: 'loop',
-          }}
-        >
+        <div className="flex gap-5 py-6 animate-marquee">
           {duplicatedClients.map((client, idx) => (
             <div
               key={idx}
@@ -109,7 +100,7 @@ export function ClientsCarousel() {
               </div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* Bottom text */}

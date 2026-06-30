@@ -61,18 +61,14 @@ export default function Stats() {
       {/* Bottom line */}
       <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(96,165,250,0.4), transparent)" }} />
 
-      {/* Animated glow orbs */}
-      <motion.div
-        animate={{ x: [0, 40, 0], opacity: [0.08, 0.14, 0.08] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      {/* Animated glow orbs — CSS animations for better performance */}
+      <div
         className="absolute top-8 left-8 w-40 h-40 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, #3b82f6, transparent)" }}
+        style={{ background: "radial-gradient(circle, #3b82f6, transparent)", opacity: 0.1, animation: "statsOrb1 12s ease-in-out infinite" }}
       />
-      <motion.div
-        animate={{ x: [0, -30, 0], opacity: [0.06, 0.12, 0.06] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+      <div
         className="absolute bottom-8 right-8 w-32 h-32 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, #60a5fa, transparent)" }}
+        style={{ background: "radial-gradient(circle, #60a5fa, transparent)", opacity: 0.08, animation: "statsOrb2 10s ease-in-out 2s infinite" }}
       />
 
       <div className="relative max-w-7xl mx-auto px-4 md:px-8" ref={ref}>
@@ -92,7 +88,7 @@ export default function Stats() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.12, duration: 0.6 }}
               className="text-center rounded-2xl p-6 border border-blue-400/15"
-              style={{ background: "rgba(59,130,246,0.08)", backdropFilter: "blur(8px)" }}
+              style={{ background: "rgba(59,130,246,0.08)" }}
             >
               <div className="flex justify-center mb-3">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "rgba(59,130,246,0.2)" }}>

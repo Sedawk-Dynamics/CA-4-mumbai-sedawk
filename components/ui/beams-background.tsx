@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface Beam {
@@ -107,7 +106,6 @@ export function BeamsBackground({
     function animate() {
       if (!canvas || !ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.filter = "blur(35px)";
       const total = beamsRef.current.length;
       beamsRef.current.forEach((beam, i) => {
         beam.y -= beam.speed;
@@ -131,13 +129,7 @@ export function BeamsBackground({
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full"
-        style={{ filter: "blur(15px)" }}
-      />
-      <motion.div
-        className="absolute inset-0 bg-neutral-950/5"
-        animate={{ opacity: [0.05, 0.15, 0.05] }}
-        transition={{ duration: 10, ease: "easeInOut", repeat: Infinity }}
-        style={{ backdropFilter: "blur(50px)" }}
+        style={{ filter: "blur(40px)" }}
       />
       {children && (
         <div className="relative z-10 w-full h-full">{children}</div>

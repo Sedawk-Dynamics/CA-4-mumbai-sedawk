@@ -172,7 +172,7 @@ export default function Hero() {
             />
             <div
               className="relative rounded-2xl p-6 md:p-8 text-white border border-white/15"
-              style={{ background: "rgba(255,255,255,0.07)", backdropFilter: "blur(20px)" }}
+              style={{ background: "rgba(255,255,255,0.07)", backdropFilter: "blur(20px)", willChange: "transform" }}
             >
               <div
                 className="absolute top-0 left-8 right-8 h-0.5 rounded-full"
